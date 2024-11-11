@@ -143,7 +143,8 @@ body {
     &__title {
 
         font-size: 14px;
-        margin-left: 10px;
+        margin-left: 7px;
+        cursor: pointer;
 
         &-active {
             text-decoration: line-through;
@@ -164,6 +165,30 @@ body {
             &:hover {
                 cursor: pointer;
             }
+        }
+    }
+
+    &__checkbox {
+        // margin: 0;
+
+        appearance: none;
+        display: block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #ddd;
+        margin: 0 3px 0 7px;
+
+        &-checked {
+            background-image: url(/src/assets/blue-mark.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border: none;
+            width: 20px;
+            height: 20px;
+            margin: 0 0 0 4px;
         }
     }
 

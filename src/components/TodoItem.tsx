@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { Todo } from '../types/Todo';
 import deleteIcon from "../assets/delete-icon.png";
 import editIcon from "../assets/edit-icon.png";
+import useTodos from '../hooks/useTodos';
 
 interface TaskItemProps {
     todo: Todo;
-    onToggleComplete: (id: number) => void;
-    onEdit: (id: number, taskTitle: string) => void;
-    onDelete: (id: number) => void;
 }
 
-const TodoItem: React.FC<TaskItemProps> = ({todo, onToggleComplete, onDelete, onEdit}) => {
+const TodoItem: React.FC<TaskItemProps> = ({todo}) => {
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [todoTitle, setTodoTitle] = useState<string>(todo.title);
+
+    const {editTodo, toggleCompleteTodo, deleteTodo} = useTodos();
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if(e.code === 'Enter') {
@@ -23,9 +23,7 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, onToggleComplete, onDelete, on
     }
 
     const saveResult = () => {
-        if(todoTitle.trim()) {
-            onEdit(todo.id, todoTitle);
-        }
+        if(todoTitle.trim()) editTodo(todo.id, todoTitle);
         
         setIsEditing(false);
     }
@@ -36,8 +34,8 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, onToggleComplete, onDelete, on
                 <input
                     type="checkbox"
                     checked={todo.isDone}
-                    onChange={() => onToggleComplete(todo.id)}
-                    className="todo-item__checkbox"
+                    onChange={() => toggleCompleteTodo(todo.id)}
+                    className={`todo-item__checkbox ${todo.isDone ? "todo-item__checkbox-checked" : ''}`}
                 />
                 {isEditing ? 
                     <input 
@@ -49,7 +47,12 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, onToggleComplete, onDelete, on
                         onKeyDown={handleKeyDown}
                     />
                     :
-                    <span className={`todo-item__title ${todo.isDone ? "todo-item__title-active" : ""}`}>{todo.title}</span>
+                    <span
+                        className={`todo-item__title ${todo.isDone ? "todo-item__title-active" : ""}`}
+                        onClick={() => toggleCompleteTodo(todo.id)}
+                    >
+                        {todo.title}
+                    </span>
                 }
             </div>
             <div className='todo-item__right-wrapper'>
@@ -61,7 +64,7 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, onToggleComplete, onDelete, on
                 } >
                     <img src={editIcon} alt="edit icon" />
                 </button>
-                <button className="todo-item__delete-button" onClick={() => onDelete(todo.id)} >
+                <button className="todo-item__delete-button" onClick={() => deleteTodo(todo.id)} >
                     <img src={deleteIcon} alt="delete-img"/>
                 </button>
             </div>

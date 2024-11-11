@@ -5,7 +5,7 @@ import { Todo } from '../types/Todo';
 
 const TodosList: React.FC = () => {
 
-    const { todos, toggleTodoCompletion, editTodo, deleteTodo } = useTodos();
+    const { todos} = useTodos();
 
     return (
         <div className="todos-list">
@@ -13,9 +13,6 @@ const TodosList: React.FC = () => {
             <TaskItem
                 key={todo.id}
                 todo={todo}
-                onToggleComplete={toggleTodoCompletion}
-                onEdit={editTodo}
-                onDelete={deleteTodo}
             />
             ))}
         

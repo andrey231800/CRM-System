@@ -4,7 +4,7 @@ import useTodos from '../hooks/useTodos';
 const TodoForm: React.FC = () => {
     const [todoTitle, setTodoTitle] = React.useState<string>('');
 
-    const { addTodo } = useTodos();
+    const {addTodo} = useTodos();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
