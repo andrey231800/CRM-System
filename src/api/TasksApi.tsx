@@ -1,9 +1,11 @@
-import { MetaResponse, Todo, TodoInfo } from "../types/Todo";
+import { FilterStatus, MetaResponse, Todo, TodoInfo } from "../types/Todo";
 
-export const getTodos = async (filterStatus: string = 'all'): Promise<MetaResponse<Todo, TodoInfo> | undefined >=> {
+const DOMEN = "https://easydev.club/api/v1/todos";
+
+export const getTodos = async (filterStatus: FilterStatus = FilterStatus.All): Promise<MetaResponse<Todo, TodoInfo> | undefined >=> {
 
     try {
-        const url = `https://easydev.club/api/v1/todos?filter=${filterStatus}`;
+        const url = `${DOMEN}?filter=${filterStatus}`;
         const res = await fetch(url);
 
         if(!res.ok) throw new Error('Error getting response occured');
@@ -12,7 +14,7 @@ export const getTodos = async (filterStatus: string = 'all'): Promise<MetaRespon
 
         return todos
     } catch (e) {
-        console.error(`Error fetching data: ${e}`);
+        throw new Error(`Error fetching data: ${e}`);
     }
 
 }
@@ -21,7 +23,7 @@ export const getTodoById = async (id: number): Promise<Todo | undefined> => {
         
 
     try {
-        const url = `https://easydev.club/api/v1/todos/${id}`;
+        const url = `${DOMEN}/${id}`;
         const res = await fetch(url);
 
         if(!res.ok) throw new Error('Error getting response occured');
@@ -30,6 +32,6 @@ export const getTodoById = async (id: number): Promise<Todo | undefined> => {
 
         return todo
     } catch (e) {
-        console.error(`Error fetching data: ${e}`);
+        throw new Error(`Error fetching data: ${e}`);
     }
 }

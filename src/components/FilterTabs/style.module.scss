@@ -1,0 +1,27 @@
+.wrapper{
+
+    display: flex;
+    justify-content: center;
+    gap: 13px;
+    font-size: 14px;
+    margin-bottom: 15px;
+
+    .tab {
+
+        color: #777373;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+    }
+
+    .tab_active  {
+        text-decoration: underline;
+        color: #24b2e9;
+        font-weight: 800;
+        font-size: 15px;
+    }
+    
+
+}
