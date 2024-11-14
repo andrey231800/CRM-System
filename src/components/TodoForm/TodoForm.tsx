@@ -1,5 +1,4 @@
 import React from 'react';
-import useTodos from '../../hooks/useTodos';
 import styles from './style.module.scss';
 
 type TodoFormProps = {

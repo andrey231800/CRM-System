@@ -1,5 +1,4 @@
 import FilterTabs from './components/FilterTabs/FilterTabs'
-import { TodosProvider } from './context/TaskContext'
 import TodosList from './components/TodosList/TodosList'
 import TodoForm from './components/TodoForm/TodoForm'
 import { useEffect, useState } from 'react'
