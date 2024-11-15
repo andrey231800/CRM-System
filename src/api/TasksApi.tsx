@@ -1,37 +1,69 @@
 import { FilterStatus, MetaResponse, Todo, TodoInfo } from "../types/Todo";
 
-const DOMEN = "https://easydev.club/api/v1/todos";
+const DOMEN = "https://easydev.club/api/v1";
 
-export const getTodos = async (filterStatus: FilterStatus = FilterStatus.All): Promise<MetaResponse<Todo, TodoInfo> | undefined >=> {
+export const fetchTodos = async (filterStatus: FilterStatus = FilterStatus.All): Promise<MetaResponse<Todo, TodoInfo>>=> {
 
-    try {
-        const url = `${DOMEN}?filter=${filterStatus}`;
-        const res = await fetch(url);
+    const url = `${DOMEN}/todos?filter=${filterStatus}`;
+    const res = await fetch(url);
 
-        if(!res.ok) throw new Error('Error getting response occured');
+    if(!res.ok) throw new Error('Error getting response occured');
 
-        const todos = await res.json();
-
-        return todos
-    } catch (e) {
-        throw new Error(`Error fetching data: ${e}`);
-    }
+    return res.json();
+    
 
 }
 
-export const getTodoById = async (id: number): Promise<Todo | undefined> => {
+export const getTodoById = async (id: number): Promise<Todo> => {
         
+    const url = `${DOMEN}/todos/${id}`;
+    const response = await fetch(url);
 
-    try {
-        const url = `${DOMEN}/${id}`;
-        const res = await fetch(url);
+    if(!response.ok) throw new Error('Error getting response occured');
 
-        if(!res.ok) throw new Error('Error getting response occured');
+    return response.json();
+}
 
-        const todo = await res.json();
+export const createTodo = async (newTodo: Partial<Todo>): Promise<Todo> => {
 
-        return todo
-    } catch (e) {
-        throw new Error(`Error fetching data: ${e}`);
-    }
+    const url = `${DOMEN}/todos`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newTodo), 
+    });
+
+    if (!response.ok) throw new Error('Network response was not ok');
+
+    return response.json();
+    
+}
+
+export const updateTodo = async (id: number, updatedData: Partial<Todo>): Promise<Todo> => {
+
+    const url = `${DOMEN}/todos/${id}`;
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData), 
+    });
+
+    if (!response.ok) throw new Error('Network response was not ok');
+
+    return response.json(); 
+    
+}
+
+export const deleteTodo = async (id: number): Promise<void> => {
+
+    const response = await fetch(`${DOMEN}/todos/${id}`, {
+        method: 'DELETE',
+    });
+
+    if (!response.ok) throw new Error('Network response was not ok');
+
 }

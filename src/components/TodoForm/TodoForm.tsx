@@ -16,17 +16,21 @@ const TodoForm: React.FC<TodoFormProps> = ({addTodo}) => {
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
 
-        if(todoTitle.trim().length >= 2 && todoTitle.trim().length <= 64) {
-            await addTodo(todoTitle.trim());
-            setTodoTitle('');
-        } else {
-            setErrorBoundary(true);
+        try {
+            e.preventDefault();
 
-            setTimeout(() => setErrorBoundary(false), 1000);
+            if(todoTitle.trim().length >= 2 && todoTitle.trim().length <= 64) {
+                await addTodo(todoTitle.trim());
+                setTodoTitle('');
+            } else {
+                setErrorBoundary(true);
+
+                setTimeout(() => setErrorBoundary(false), 1000);
+            }
+        } catch(e) {
+            throw new Error(`Error submitting form: ${e}`)
         }
-        
 
     }
 
