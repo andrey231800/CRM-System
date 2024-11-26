@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './style.module.scss';
+import { Button, Input, Form } from 'antd';
 
 type TodoFormProps = {
     addTodo: (title: string) => void;
@@ -7,27 +8,23 @@ type TodoFormProps = {
 
 const TodoForm: React.FC<TodoFormProps> = ({addTodo}) => {
     const [todoTitle, setTodoTitle] = React.useState<string>('');
-    const [errorBoundary, setErrorBoundary] = React.useState<boolean>(false);
 
-    // const {addTodo} = useTodos();
+    const [form] = Form.useForm();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
         setTodoTitle(e.target.value)
     }
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async () => {
 
         try {
-            e.preventDefault();
 
             if(todoTitle.trim().length >= 2 && todoTitle.trim().length <= 64) {
                 await addTodo(todoTitle.trim());
                 setTodoTitle('');
-            } else {
-                setErrorBoundary(true);
 
-                setTimeout(() => setErrorBoundary(false), 1000);
-            }
+                form.resetFields()
+            } 
         } catch(e) {
             throw new Error(`Error submitting form: ${e}`)
         }
@@ -36,22 +33,38 @@ const TodoForm: React.FC<TodoFormProps> = ({addTodo}) => {
 
     return (
         <div className={styles.wrapper}>
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.input_wrapper}>
-                    <input 
-                        type="text"
-                        placeholder="Task to be done..."
-                        value={todoTitle}
+            <Form
+                form={form}
+                onFinish={handleSubmit}
+                style={{display: 'flex', paddingTop: 30}}
+            >
+
+                <Form.Item
+                    style={{width: 300}}
+                    // label="Password"
+                    name="password"
+                    rules={[
+                        {required: true, message: 'Введите название'},
+                        {min: 2, message: 'Имя должно содержать минимум 2 символа.'},
+                        {max: 64, message: 'Имя должно содержать не более 64 символов.'}
+                    ]}
+
+                >
+                    <Input
+                        type='text'
                         onChange={handleChange}
-                        className={styles.input}
+                        value={todoTitle}
+                        placeholder='Task to be done...'
                     />
-                </div>
-                 <button type="submit" className={styles.add_button}>
-                    Add
-                 </button>
-            </form>
-            <span className={`${styles.error} ${errorBoundary ? styles.error_active : ""}`}>XXX</span>
+                    
+                </Form.Item>
+                <Form.Item label={null} style={{}}>
+                    <Button htmlType="submit">Add</Button>
+                </Form.Item>
+            </Form>
         </div>
+                
+                
     );
 };
 

@@ -12,8 +12,6 @@ type TodosListProps = {
 
 const TodosList: React.FC<TodosListProps> = ({todos, editTodo, toggleCompleteTodo, deleteTodo}) => {
 
-    // const { todos} = useTodos();
-
     return (
         <div className={styles.wrapper}>
             {todos.map((todo: Todo) => (

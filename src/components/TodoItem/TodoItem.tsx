@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Todo } from '../../types/Todo';
-import deleteIcon from "../../assets/delete-icon.png";
-import editIcon from "../../assets/edit-icon.png";
-import saveIcon from "../../assets/save-icon.png";
-import cancelIcon from "../../assets/cancel-icon.png";
 import styles from './style.module.scss';
+import { Button, Checkbox, Input, Space} from 'antd';
+import { CloseOutlined, DeleteOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';
 
 interface TaskItemProps {
     todo: Todo;
@@ -17,8 +15,6 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, editTodo, toggleCompleteTodo, 
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [todoTitle, setTodoTitle] = useState<string>(todo.title);
-
-    // const {editTodo, toggleCompleteTodo, deleteTodo} = useTodos();
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if(e.code === 'Enter') {
@@ -41,15 +37,12 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, editTodo, toggleCompleteTodo, 
     return (
         <div className={styles.wrapper}>
             <div className={styles.left_wrapper}>
-                <input
-                    type="checkbox"
+                <Checkbox
                     checked={todo.isDone}
                     onChange={() => toggleCompleteTodo(todo.id)}
-                    className={`${styles.checkbox} ${todo.isDone ? styles.checkbox_checked : ''}`}
                 />
                 {isEditing ? 
-                    <input 
-                        type="text"
+                    <Input 
                         placeholder="Edit task"
                         value={todoTitle}
                         onChange={e => setTodoTitle(e.target.value)}
@@ -66,21 +59,18 @@ const TodoItem: React.FC<TaskItemProps> = ({todo, editTodo, toggleCompleteTodo, 
                 }
             </div>
             <div className={styles.right_wrapper}>
-                <button className={styles.edit_button} onClick={
-                    isEditing ?
-                    () => saveResult() :
-                    () => setIsEditing(!isEditing)
-                    
-                } >
-                    <img src={isEditing ? saveIcon : editIcon} alt="edit icon" className={styles.edit_button_img} />
-                </button>
-                <button className={styles.delete_button} onClick={
-                    isEditing ?
-                    () => handleCancel() :
-                    () => deleteTodo(todo.id)
-                }>
-                    <img src={isEditing ? cancelIcon : deleteIcon} alt="delete-img" className={styles.delete_button_img}/>
-                </button>
+                <Space>
+                    <Button 
+                        icon={isEditing ? <SaveOutlined/> : <EditOutlined/>}
+                        onClick={isEditing ? () => saveResult() : () => setIsEditing(!isEditing)} 
+                        type='primary'
+                    />
+                    <Button 
+                        danger
+                        onClick={isEditing ? () => handleCancel() : () => deleteTodo(todo.id)}
+                        icon={isEditing ? <CloseOutlined/> : <DeleteOutlined/>}
+                    />
+                </Space>
             </div>
         </div>
     );
