@@ -7,7 +7,6 @@ import type { TabsProps } from 'antd';
 interface FilterTabsProps {
     updateTodos: (filter: FilterStatus) => void,
     tabs: TodoInfo,
-    filter?: FilterStatus
 }
 
 const FilterTabs: React.FC<FilterTabsProps> = ({updateTodos, tabs}) => {
@@ -33,7 +32,6 @@ const FilterTabs: React.FC<FilterTabsProps> = ({updateTodos, tabs}) => {
         if (Object.values(FilterStatus).includes(activeKey as FilterStatus)) {
             updateTodos(activeKey as FilterStatus);
         }
-
         
     }
 

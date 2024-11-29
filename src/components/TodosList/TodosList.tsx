@@ -6,7 +6,7 @@ import styles from './style.module.scss';
 type TodosListProps = {
     todos: Todo[],
     editTodo: (id: number, newTitle: string) => void;
-    toggleCompleteTodo: (id: number) => void;
+    toggleCompleteTodo: (id: number, isDone: boolean) => void;
     deleteTodo: (id: number) => void;
 }
 

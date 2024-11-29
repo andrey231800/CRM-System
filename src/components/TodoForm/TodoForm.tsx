@@ -58,9 +58,9 @@ const TodoForm: React.FC<TodoFormProps> = ({addTodo}) => {
                     />
                     
                 </Form.Item>
-                <Form.Item label={null} style={{}}>
-                    <Button htmlType="submit">Add</Button>
-                </Form.Item>
+
+                <Button htmlType="submit">Add</Button>
+
             </Form>
         </div>
                 
