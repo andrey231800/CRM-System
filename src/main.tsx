@@ -4,5 +4,5 @@ import App from './App.tsx';
 import "./main.scss";
 
 createRoot(document.getElementById('root')!).render(
-    <App />
+    <App/>
 )

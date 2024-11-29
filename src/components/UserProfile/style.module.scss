@@ -1,0 +1,11 @@
+.wrapper {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin: 0;
+
+    span {
+        font-size: 100px;
+        font-weight: 800;
+    }
+}
