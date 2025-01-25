@@ -11,32 +11,33 @@ import styles from './style.module.scss'
 
 const { Sider } = Layout;
 
-const LayoutComponent: React.FC = () => {
+const MenuComponent: React.FC = () => {
+  
   const [collapsed, setCollapsed] = useState(true);
 
   return (
     <div className={styles.wrapper}>
         <Layout className={styles.layout}>
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="demo-logo-vertical" />
-          <Menu
-            theme="light"
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            items={[
-              {
-                key: '1',
-                icon: <OrderedListOutlined />,
-                label: <Link to="/todo">Todo List</Link>
-              },
-              {
-                key: '2',
-                icon: <UserOutlined />,
-                label: <Link to="/user">User Profile</Link>
-              },
-            ]}
-          />
-        </Sider>
+          <Sider trigger={null} collapsible collapsed={collapsed}>
+            <div className="demo-logo-vertical" />
+            <Menu
+              theme="light"
+              mode="inline"
+              defaultSelectedKeys={['1']}
+              items={[
+                {
+                  key: '1',
+                  icon: <OrderedListOutlined />,
+                  label: <Link to="/dashboard/todo">Todo List</Link>
+                },
+                {
+                  key: '2',
+                  icon: <UserOutlined />,
+                  label: <Link to="/dashboard/user">User Profile</Link>
+                },
+              ]}
+            />
+          </Sider>
         <Layout>
             <Button
               type="primary"
@@ -56,4 +57,4 @@ const LayoutComponent: React.FC = () => {
   );
 };
 
-export default LayoutComponent;
+export default MenuComponent;
