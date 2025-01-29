@@ -7,12 +7,12 @@ const UserProfile: React.FC = () => {
 
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
     const [logout, {isLoading}] = useLogoutMutation();
-    const {data: userInfo } = useGetUserProfileQuery();
+    const {data: userInfo,  } = useGetUserProfileQuery(undefined, {refetchOnMountOrArgChange: true});
 
     const {Text} = Typography;
 
     useEffect(() => {
-        console.log(userInfo)
+        // console.log(userInfo)
     }, [])
 
     const handleLogout = async () => {

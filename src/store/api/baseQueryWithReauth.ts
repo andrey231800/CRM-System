@@ -2,7 +2,7 @@ import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@re
 import { authActions } from "../slices/authSlice";
 import { Token } from "../../types/IAuth";
 
-const baseUrl = "https://easydev.club/api/v2";
+const baseUrl = "https://easydev.club/api/v1";
 
 const baseQuery = fetchBaseQuery({
     baseUrl: baseUrl,
@@ -13,42 +13,54 @@ const baseQuery = fetchBaseQuery({
         }
         return headers;
     },
-    credentials: 'include'
 })
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
 
-    // console.log(result );
+    console.log(result)
 
-    if (result.meta && result.meta.response?.status === 401) {
+    if ( result.error?.status === 'PARSING_ERROR') {
 
-        const refreshResult = (await baseQuery(
-            {
-                url:'/auth/refresh',
-                method: "POST"
-            }, 
-            api,
-            extraOptions
-        )) as {data: Token}
+        try {
+            const refreshResult = (await baseQuery(
+                {
+                    url:'/auth/refresh',
+                    method: "POST",
+                    body: {refreshToken: localStorage.getItem("refreshToken")}
+                }, 
+                api,
+                extraOptions
+            )) as {data: Token}
 
-        if (refreshResult.data) {
-          
-            const {accessToken} = refreshResult.data;
-            localStorage.setItem('accessToken', accessToken);
-
-            api.dispatch(authActions.setAccessToken(accessToken))
-            
-            result = await baseQuery(args, api, extraOptions)
-
-            console.log('logIn');
-
-        } else {
+            console.log(refreshResult)
+    
+            if (refreshResult.data) {
+              
+                const {accessToken, refreshToken} = refreshResult.data;
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+    
+                api.dispatch(authActions.setTokens(refreshResult.data))
+                
+                result = await baseQuery(args, api, extraOptions)
+    
+                console.log('logIn');
+    
+            } else {
+                
+                throw new Error('Error fetching data!');
+    
+            }
+        } catch(e) {
             api.dispatch(authActions.logout());
+    
+            localStorage.removeItem('accessToken');
 
             console.log('logout')
-
         }
+
+        
     }
     return result;
 }

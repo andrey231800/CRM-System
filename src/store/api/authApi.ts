@@ -29,13 +29,14 @@ export const authApi = createApi({
           async onQueryStarted(_, {dispatch, queryFulfilled}) {
             try {
               const { data } = await queryFulfilled;
-              const { accessToken } = data;
+              const { accessToken, refreshToken } = data;
 
               localStorage.setItem("accessToken", accessToken);
+              localStorage.setItem("refreshToken", refreshToken);
 
               console.log('set new token?')
 
-              dispatch(authActions.setAccessToken(accessToken));
+              dispatch(authActions.setTokens(data));
               
             } catch(e) {
               // throw new Error('Login failed')
@@ -54,6 +55,7 @@ export const authApi = createApi({
           async onQueryStarted(_, {dispatch}) {
 
             localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
 
             dispatch(authActions.logout());
               

@@ -39,7 +39,14 @@ const RegistrationForm = () => {
                     console.log('User already exists')
                     handleOpenModal('Error! User already exists', 'Please try another username');
                 }
+
+                if(e.originalStatus === 400) {
+                    console.log('Wrong input data')
+                    handleOpenModal('Error! Wrong input data', 'Please try to input another');
+                }
             }
+        } finally {
+            form.resetFields();
         }
     }
 
@@ -90,7 +97,7 @@ const RegistrationForm = () => {
                             { required: true, message: "Please enter your login!", whitespace: true},
                             {min: 2, message: 'Login must be more than 1 symbol!'},
                             {max: 60, message: 'Login must be less than 60 symbols!'},
-                            {pattern: /^[a-zA-Z0-9]*$/, message: 'Please input login in the correct form!'}
+                            {pattern: /^[a-zA-Z]*$/, message: 'Please input login in the correct form!'}
                         ]}
                     >
                         <Input
