@@ -78,7 +78,8 @@ const RegistrationForm = () => {
                         rules={[
                             { required: true, message: "Please enter your user name!" },
                             {min: 1, message: 'User name must be more than 0 symbols!'},
-                            {max: 60, message: 'User name must be less than 60 symbols!'}
+                            {max: 60, message: 'User name must be less than 60 symbols!'},
+                            {pattern: /^[a-zA-ZА-Яа-я]*$/, message: 'Please input login in the correct form!'}
                         ]}
                     >
                         <Input
