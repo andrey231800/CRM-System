@@ -174,8 +174,8 @@ const RegistrationForm = () => {
                         name="phoneNumber"
                         rules={[
                             {
-                                type: "number",
-                                pattern: /^\+?[0-9]{10,15}$/,
+                                // type: "number",
+                                pattern: /^\+?(?:\d{1,4})?\d{6,14}$/,
                                 message: "Phone number must be between 10 to 15 digits.",
                             },
                         ]}
