@@ -1,6 +1,7 @@
 import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { authActions } from "../slices/authSlice";
 import { Token } from "../../types/IAuth";
+import { tokensManager } from "../../helpers/TokensManager";
 
 const baseUrl = "https://easydev.club/api/v1";
 
@@ -27,7 +28,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
                 {
                     url:'/auth/refresh',
                     method: "POST",
-                    body: {refreshToken: localStorage.getItem("refreshToken")}
+                    body: {refreshToken: tokensManager.getRefreshToken()}
                 }, 
                 api,
                 extraOptions
@@ -37,9 +38,9 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
     
             if (refreshResult.data) {
               
-                const {accessToken, refreshToken} = refreshResult.data;
-                localStorage.setItem('accessToken', accessToken);
-                localStorage.setItem('refreshToken', refreshToken);
+                // const {accessToken, refreshToken} = refreshResult.data;
+                // localStorage.setItem('accessToken', accessToken);
+                // localStorage.setItem('refreshToken', refreshToken);
     
                 api.dispatch(authActions.setTokens(refreshResult.data))
                 
@@ -54,8 +55,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
             }
         } catch(e) {
             api.dispatch(authActions.logout());
-    
-            localStorage.removeItem('accessToken');
 
             console.log('logout')
         }

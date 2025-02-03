@@ -29,12 +29,10 @@ export const authApi = createApi({
           async onQueryStarted(_, {dispatch, queryFulfilled}) {
             try {
               const { data } = await queryFulfilled;
-              const { accessToken, refreshToken } = data;
+              // const { accessToken, refreshToken } = data;
 
-              localStorage.setItem("accessToken", accessToken);
-              localStorage.setItem("refreshToken", refreshToken);
-
-              console.log('set new token?')
+              // localStorage.setItem("accessToken", accessToken);
+              // localStorage.setItem("refreshToken", refreshToken);
 
               dispatch(authActions.setTokens(data));
               
@@ -53,9 +51,6 @@ export const authApi = createApi({
           }),
 
           async onQueryStarted(_, {dispatch}) {
-
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
 
             dispatch(authActions.logout());
               
