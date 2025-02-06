@@ -1,42 +1,47 @@
-import { Button, Checkbox, ConfigProvider, Form, Input, Typography } from 'antd';
+import { Button, Checkbox, ConfigProvider, Form, Input, notification, Typography } from 'antd';
 import { Link } from 'react-router';
 import icon from './../../../assets/images/icon.png';
 import styles from './style.module.scss';
 import React from 'react';
 import { AuthData } from '../../../types/IAuth';
 import { useLoginMutation } from '../../../store/api/authApi';
-import { useDispatch } from 'react-redux';
-import { modalActions } from '../../../store/slices/modalSlice';
 
 const {Text, Title} = Typography;
 
 const AuthForm: React.FC = () => {
 
     const [form] = Form.useForm();
-    const dispatch = useDispatch();
-
 
     const [login, {isLoading}] = useLoginMutation();
 
-    const handleOpenModal = () => {
-        dispatch(modalActions.open({content: "Please try again", title: "Wrong Login or Password"}))
-    }
+    // const handleOpenModal = () => {
+    //     dispatch(modalActions.open({content: "Please try again", title: "Wrong Login or Password"}))
+    // }
 
     const onFinish = async (formData: AuthData) => {
+
+        // openNotification()
+
         try {
 
-            // const res = await login({login: 'vkndnmtoi', password: 'asfre4fs'});
-
             await login(formData).unwrap()
+
+            notification.success({
+                message: 'User autorized successfully',
+                description: 'Welcome!',
+                duration: 2
+            });
                 
 
         } catch(e) {
-            console.log(e)
 
-            handleOpenModal();
+            notification.error({
+                message: 'Error autorization!',
+                description: 'Try to input another login or password',
+                duration: 2
+            })
 
-            // setIsError(true);
-            // setTimeout(() => setIsError(false), 2000);
+            // handleOpenModal();
             
         } 
     }

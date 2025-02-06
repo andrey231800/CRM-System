@@ -1,13 +1,11 @@
-import { Button, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, notification, Typography } from 'antd';
 import icon from './../../../assets/images/icon.png';
 import styles from './style.module.scss';
 
 const {Title} = Typography;
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useRegisterMutation } from '../../../store/api/authApi';
 import { UserRegistration } from '../../../types/IAuth';
-import { useDispatch } from 'react-redux';
-import { modalActions } from '../../../store/slices/modalSlice';
 
 type FormData = UserRegistration & {confirm?: string};
 
@@ -17,10 +15,8 @@ const RegistrationForm = () => {
 
     const [form] = Form.useForm();
 
-    const dispatch = useDispatch();
-    const handleOpenModal = (title: string, content: string, buttonType?: string) => {
-        dispatch(modalActions.open({title, content, buttonType}))
-    }
+    const navigate = useNavigate();
+
 
     const onFinish = async (formData: FormData) => {
         delete formData.confirm;
@@ -29,18 +25,46 @@ const RegistrationForm = () => {
 
             await register(formData).unwrap()
             console.log('user registered successfully!');
-            handleOpenModal('Success!', 'Now you can login to your account!', 'registration');
+
+            notification.success({
+                message: 'User registered successfully!',
+                description: 'Now you can go to autorization page',
+                duration: 0,
+                btn: (
+                    <Button
+                        size='small'
+                        type='primary'
+                        onClick={() => {
+                            navigate('/auth/login');
+                            notification.destroy();
+                        }}
+                    >
+                        Back to LogIn
+                    </Button>
+                ) 
+            })
 
         } catch(e) {
             if(e && typeof e === 'object' && 'originalStatus' in e) {
                 if(e.originalStatus === 409) {
                     console.log('User already exists')
-                    handleOpenModal('Error! User already exists', 'Please try another username');
+                    // handleOpenModal('Error! User already exists', 'Please try another username');
+                    notification.error({
+                        message: 'Error! User already exists',
+                        description: 'Try to input another usernane',
+                        duration: 1.5
+                    })
                 }
 
                 if(e.originalStatus === 400) {
                     console.log('Wrong input data')
-                    handleOpenModal('Error! Wrong input data', 'Please try to input another');
+                    // handleOpenModal('Error! Wrong input data', 'Please try to input another');
+
+                    notification.error({
+                        message: 'Error! Wrong input data',
+                        description: 'Please try to input data in correct form',
+                        duration: 1.5
+                    })
                 }
             }
         } finally {

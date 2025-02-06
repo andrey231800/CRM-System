@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './style.module.scss';
-import { Button, Typography } from 'antd';
+import { Button, notification, Typography } from 'antd';
 import { useGetUserProfileQuery, useLogoutMutation } from '../../store/api/authApi';
 
 const UserProfile: React.FC = () => {
@@ -23,10 +23,19 @@ const UserProfile: React.FC = () => {
             await logout().unwrap()
             
             
+            
         } catch(e) {
            console.log('error loggin out')
+
+           
         } finally {
             setIsButtonDisabled(false);
+
+            notification.info({
+                message: "You've logged out successfully",
+                description: '',
+                duration: 2
+            })
         }
         
     }
