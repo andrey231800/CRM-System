@@ -2,7 +2,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import icon from './../../../assets/images/icon.png';
 import styles from './style.module.scss';
 
-const {Text, Title} = Typography;
+const {Title} = Typography;
 import { Link } from 'react-router';
 import { useRegisterMutation } from '../../../store/api/authApi';
 import { UserRegistration } from '../../../types/IAuth';
@@ -24,8 +24,6 @@ const RegistrationForm = () => {
 
     const onFinish = async (formData: FormData) => {
         delete formData.confirm;
-
-        // console.log(formData)
 
         try {
 
@@ -68,15 +66,22 @@ const RegistrationForm = () => {
                     className={styles.form}
                     onFinish={onFinish}
                     form={form}
+                    labelWrap
+                    labelAlign="left"
+                    wrapperCol={{ flex: 1 }}
+                    colon={false}
+                    style={{ maxWidth: "500px"}}
                 >
 
-                    <Text strong className={styles.label}>
-                        User Name
-                    </Text>
                     <Form.Item
                         name="username"
+                        label="User Name"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
-                            { required: true, message: "Please enter your user name!" },
+                            {required: true, message: "Please enter your user name!" },
                             {min: 1, message: 'User name must be more than 0 symbols!'},
                             {max: 60, message: 'User name must be less than 60 symbols!'},
                             {pattern: /^[a-zA-ZА-Яа-я]*$/, message: 'Please input login in the correct form!'}
@@ -89,11 +94,13 @@ const RegistrationForm = () => {
                         />
                     </Form.Item>
 
-                    <Text strong className={styles.label}>
-                        Login
-                    </Text>
                     <Form.Item
                         name="login"
+                        label="Login"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
                             { required: true, message: "Please enter your login!", whitespace: true},
                             {min: 2, message: 'Login must be more than 1 symbol!'},
@@ -108,12 +115,14 @@ const RegistrationForm = () => {
                         />
                     </Form.Item>
 
-                    <Text strong className={styles.label}>
-                        Password
-                    </Text>
                     <Form.Item
                         name="password"
                         hasFeedback
+                        label="Password"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
                             {required: true, message: "Please enter your password!"},
                             {min: 6, message: 'Minimum symbols for password - 6'},
@@ -127,11 +136,13 @@ const RegistrationForm = () => {
                         />
                     </Form.Item>
 
-                    <Text strong className={styles.label}>
-                        Confirm Password
-                    </Text>
                     <Form.Item
-                        name="confirm"
+                        name="confirm password"
+                        label="Confirm Password"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
                             { required: true, message: "Please confirm your password!" },
                             ({ getFieldValue }) => ({
@@ -147,18 +158,20 @@ const RegistrationForm = () => {
                         hasFeedback
                     >
                         <Input.Password 
-                            type='confirm' 
+                            type='password' 
                             placeholder='*****************'
                             className={styles.input}
                         />
                     </Form.Item>
 
-                    <Text strong className={styles.label}>
-                        Email
-                    </Text>
                     <Form.Item
                         name="email"
                         rules={[{ required: true, message: "Please enter your email!"}, { type: 'email', message: "It's not valid email!" }]}
+                        label="Email"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                     >
                         <Input
                             type="email"
@@ -167,11 +180,13 @@ const RegistrationForm = () => {
                         />
                     </Form.Item>
 
-                    <Text strong className={styles.label}>
-                        Phone Number
-                    </Text>
                     <Form.Item
                         name="phoneNumber"
+                        label="Phone Number"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
                             {
                                 // type: "number",

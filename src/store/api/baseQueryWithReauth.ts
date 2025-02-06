@@ -19,7 +19,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
 
-    console.log(result)
+    // console.log(result)
 
     if ( result.error?.status === 'PARSING_ERROR') {
 
@@ -34,13 +34,9 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
                 extraOptions
             )) as {data: Token}
 
-            console.log(refreshResult)
+            // console.log(refreshResult)
     
             if (refreshResult.data) {
-              
-                // const {accessToken, refreshToken} = refreshResult.data;
-                // localStorage.setItem('accessToken', accessToken);
-                // localStorage.setItem('refreshToken', refreshToken);
     
                 api.dispatch(authActions.setTokens(refreshResult.data))
                 

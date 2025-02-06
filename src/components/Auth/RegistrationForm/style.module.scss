@@ -76,3 +76,10 @@ $gray-color: #6c757d;
   
 }
 
+:global {
+  .ant-form-item-label > label {
+    color: #828282;
+    font-family: "Nunito Sans", serif;
+    font-size: 14px;
+  }
+}

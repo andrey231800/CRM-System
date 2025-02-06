@@ -2,7 +2,7 @@ import { Button, Modal } from 'antd';
 import { modalActions } from '../../store/slices/modalSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { Link } from 'react-router';
+import { Link, Outlet } from 'react-router';
 
 const AppModal = () => {
 
@@ -41,7 +41,9 @@ const AppModal = () => {
                     {content}
                 </span>
             </Modal>    
+            <Outlet/>
         </div>
+       
     );
 };
 

@@ -1,7 +1,7 @@
 import illustration from '../../../assets/images/illustration.png'
 import styles from './style.module.scss';
 
-const AuthLayout = () => {
+const AuthImageComponent = () => {
     return (
         <div className={styles.wrapper}>
             <img src={illustration} alt="skeleton image" className={styles.image}/>
@@ -9,4 +9,4 @@ const AuthLayout = () => {
     );
 };
 
-export default AuthLayout;
+export default AuthImageComponent;

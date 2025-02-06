@@ -1,5 +1,5 @@
 import AuthForm from '../components/Auth/AuthForm/AuthForm';
-import AuthLayout from '../components/Auth/AuthLayout/AuthLayout';
+import AuthImageComponent from '../components/Auth/AuthImageComponent/AuthImageComponent';
 
 import styles from '../styles/auth.module.scss';
 
@@ -7,7 +7,7 @@ const AuthPage = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <AuthLayout/>
+                <AuthImageComponent/>
                 <AuthForm/>
             </div>
         </div>

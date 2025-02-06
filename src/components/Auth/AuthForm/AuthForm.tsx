@@ -62,12 +62,16 @@ const AuthForm: React.FC = () => {
                     className={styles.form}
                     onFinish={onFinish}
                     form={form}
+                    style={{ maxWidth: "500px"}}
                 >
-                    <Text strong className={styles.label}>
-                        Login
-                    </Text>
+
                     <Form.Item
                         name="login"
+                        label="Password"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
                             { required: true, message: "Please enter your login!", whitespace: true},
                             {min: 2, message: 'Login must be more than 1 symbol!'},
@@ -82,11 +86,13 @@ const AuthForm: React.FC = () => {
                         />
                     </Form.Item>
 
-                    <Text strong className={styles.label}>
-                        Password
-                    </Text>
                     <Form.Item
                         name="password"
+                        label="Password"
+                        required={false}
+                        className={styles.label}
+                        wrapperCol={{span: 24}}
+                        labelCol={{span: 24}}
                         rules={[
                             { required: true, message: "Please enter your password!" },
                             {min: 6, message: 'Minimum symbols for password - 6'},

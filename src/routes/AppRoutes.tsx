@@ -7,6 +7,7 @@ import RegistrationPage from '../pages/RegistrationPage';
 import MenuComponent from '../components/MenuComponent/MenuComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import AppModal from '../components/AppModal/AppModal';
 
 const PublicRoute: React.FC = () => {
     const isAuthenticated = useSelector((state: RootState) => state.auth.isLoggedIn)
@@ -30,8 +31,10 @@ const AppRoutes = () => {
             </Route>
 
             <Route element={<PublicRoute/>}>
-                <Route path='auth/login' element={<AuthPage/>}/>
-                <Route path='auth/registration' element={<RegistrationPage/>}/>
+                <Route element={<AppModal/>}>
+                    <Route path='auth/login' element={<AuthPage/>}/>
+                    <Route path='auth/registration' element={<RegistrationPage/>}/>
+                </Route>
             </Route>
 
             <Route path="/" element={<Navigate to="/auth/login" replace />} />

@@ -1,13 +1,12 @@
-import AuthLayout from '../components/Auth/AuthLayout/AuthLayout';
-
 import styles from '../styles/auth.module.scss';
 import RegistrationForm from '../components/Auth/RegistrationForm/RegistrationForm';
+import AuthImageComponent from '../components/Auth/AuthImageComponent/AuthImageComponent';
 
 const RegistrationPage = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
-                <AuthLayout/>
+                <AuthImageComponent/>
                 <RegistrationForm/>
             </div>
         </div>
