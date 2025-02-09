@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Todo } from '../../types/Todo';
+import { Todo } from '../../../types/Todo';
 import styles from './style.module.scss';
 import { Button, Checkbox, Form, Input} from 'antd';
 import { CloseOutlined, DeleteOutlined, EditOutlined, SaveOutlined } from '@ant-design/icons';

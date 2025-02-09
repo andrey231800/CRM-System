@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterStatus, TodoInfo } from '../../types/Todo';
+import { FilterStatus, TodoInfo } from '../../../types/Todo';
 import styles from './style.module.scss';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';

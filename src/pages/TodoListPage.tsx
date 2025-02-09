@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { FilterStatus, Todo, TodoInfo } from '../types/Todo';
 import { createTodo, deleteTodo, fetchTodos, updateTodo } from '../api/TasksApi';
-import TodoForm from '../components/TodoForm/TodoForm';
-import FilterTabs from '../components/FilterTabs/FilterTabs';
-import TodosList from '../components/TodosList/TodosList';
+import TodoForm from '../components/TodoList/TodoForm/TodoForm';
+import FilterTabs from '../components/TodoList/FilterTabs/FilterTabs';
+import TodosList from '../components/TodoList/TodosList/TodosList';
 import { useLocation } from 'react-router';
 
 const TodoListPage : React.FC = () => {

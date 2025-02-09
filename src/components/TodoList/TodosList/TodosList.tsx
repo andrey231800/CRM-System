@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskItem from '../TodoItem/TodoItem';
-import { Todo } from '../../types/Todo';
+import { Todo } from '../../../types/Todo';
 import styles from './style.module.scss';
 
 type TodosListProps = {

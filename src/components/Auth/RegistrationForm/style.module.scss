@@ -1,0 +1,85 @@
+$gray-color: #6c757d;
+
+.container {
+  max-width: 1000px;
+  // text-align: center;
+  // margin: 0auto;
+  // margin: 179px 200px 175px 200px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-right: 50px;
+
+  .content {
+
+    margin: 0 auto;
+    max-width: 800px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 30px;
+
+    .logo {
+    //   margin-bottom: 36px;
+      img {
+        width: 72px;
+        height: 72px;
+      }
+    }
+    
+    .top_text {
+      padding-left: 26px
+    }
+  
+    .title {
+      font-family: "Nunito Sans", serif;
+      color: #525252;
+      text-align: left;
+      margin-bottom: 3px;
+      margin-top: 19px;
+      font-size: 36px;
+    } 
+  
+    .form {
+      margin-top: 18px;
+    }
+  
+    .label {
+      color: #828282;
+      font-family: "Nunito Sans", serif;
+      font-size: 14px;
+    }
+  
+    .input {
+      padding: 13px;
+      min-width: 420px;
+      min-height: 0;
+      margin-bottom: 0;
+    }
+  
+    .options {
+      display: flex;
+      justify-content: space-between;
+      min-height: 0;
+      
+    }
+  
+    .back {
+      text-align: center;
+      padding-top: 20px;
+      padding-bottom: 50px;
+      font-family: "Nunito Sans",;
+      font-size: 18px,
+    }
+  }
+
+  
+}
+
+:global {
+  .ant-form-item-label > label {
+    color: #828282;
+    font-family: "Nunito Sans", serif;
+    font-size: 14px;
+  }
+}
